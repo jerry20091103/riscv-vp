@@ -1,5 +1,43 @@
 # RISC-V based Virtual Prototype (VP)
 
+## RISC-V AMS VP:
+ - This branch features the RISC-V AMS VP for Analog Mixed Singal (AMS) based simulation through SystemC AMS
+ - The extension through an exemplary AMS based platform can be found in `vp/src/platform/ams`
+ - An example software making use of the platform in `vp/src/platform/ams` can be found in `sw/ams-control/`
+ - **Attention:** this VP version needs [SystemC AMS 2.3 from COSEDA Technologies](https://www.coseda-tech.com/systemc-ams-proof-of-concept) (unlike SystemC 2.3.3 (TLM) you have to fill a form to access the download, thus could not automate the download of the archive). Please place `systemc-ams-2.3.tar.gz` into the `vp/dependencies/` directory.
+ - The details of the RISC-V AMS VP and the examplary platform are covered in `RISC-V AMS VP: An Open Source Evaluation Platform for Cyber-Physical Systems` 
+
+### Installation Instructions (RISC-V AMS VP):
+ 1. Like the regular RISC-V VP you will need to have the `riscv-gnu-toolchain` (see below for instruction)
+ 2. You can now setup, build and use the VP like this:
+> **In the root of this repository:**
+> 
+> i) Checkout required git submodules:
+>
+>```bash
+>git submodule update --init vp/src/core/common/gdb-mc/libgdb/mpc
+>```
+>
+>ii) **in *vp/dependencies* folder**, make sure you placed the `systemc-ams-2.3.tar.gz`. (The scripts will download and compile regular SystemC, and build a local version of the softfloat library).
+>
+>```bash
+>./build_systemc_233.sh
+>./build_softfloat.sh
+>./build_systemc_ams_23.sh
+>```
+>
+>
+>iii) in *vp* folder (requires the *boost* C++ library):
+> 
+>```bash
+>mkdir build
+>cd build
+>cmake ..
+>make install
+>```
+
+---
+
 ### Key features of our VP:
 
  - RV32GC and RV64GC core support (i.e. RV32IMAFDC and RV64IMAFDC)
@@ -21,6 +59,7 @@ We accept pull requests and in general contributions are very welcome.
 
 In the following we provide build instructions and how to compile and run software on the VP.
 
+### Installation Instructions (regular RISC-V VP)
 
 #### 1) Build the RISC-V GNU Toolchain:
 
